@@ -1,13 +1,15 @@
 import React from 'react';
-import { useTypedSelector } from './hooks';
+import { useAppDispatch } from './hooks';
 
 function App() {
+    const dispatch = useAppDispatch();
 
-  return (
-    <div className="App">
 
-    </div>
-  );
+    return (
+        <div className='App'>
+
+        </div>
+    );
 }
 
 export default App;

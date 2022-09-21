@@ -1,11 +1,9 @@
-import { ActionCreator, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
+import counter from './counter';
 
-const test = (state = {}, action: ActionCreator<any>) => {
-    return state;
-}
 
 const reducer = combineReducers({
-    test,
+    counter
 });
 
 export default reducer;
