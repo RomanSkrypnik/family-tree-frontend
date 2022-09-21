@@ -1,1 +1,2 @@
 export const FETCH_BRANCHES = 'FETCH_BRANCHES';
+export const SET_BRANCHES = 'SET_BRANCHES';
