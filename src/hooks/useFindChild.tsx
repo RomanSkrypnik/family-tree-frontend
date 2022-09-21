@@ -1,7 +1,10 @@
 import { useTypedSelector } from './useTypedSelector';
+import { ChildrenDto, MemberDto } from '../ts';
 
-export const useFindChild = (branchId: number, userId?: number) => {
+export const useFindChild = (branchId: number, children: ChildrenDto[]): MemberDto[] => {
     const { branches } = useTypedSelector(state => state.branch);
     const branch = branches.find(({ id }) => branchId === id);
-    return branch?.members.find(({ id }) => id === userId);
+    return children.map(child => {
+        return branch?.members.find(({ id }) => child.userId === id) as MemberDto;
+    });
 };

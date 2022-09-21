@@ -7,15 +7,19 @@ interface Props {
 }
 
 export const BranchItem: FC<Props> = ({ member }) => {
-    const children = useFindChild(member.branchId, member.children?.userId);
+    const children = useFindChild(member.branchId, member.children);
 
     return (
         <>
-            <div>
+            <li>
                 <div>{member.name}</div>
                 <div>{member.birth}</div>
-            </div>
-            {children && <BranchItem member={children} />}
+                <ul>
+                    {
+                        children.map(child => <BranchItem member={child} />)
+                    }
+                </ul>
+            </li>
         </>
     );
 };
