@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useTypedSelector } from './hooks';
-import { fetchBranches } from './store/actions/actionCreator';
-import { BranchItem } from './components';
+import { BranchItem, Header } from './components';
+import { ActionType } from './store/reducers/branch';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -9,16 +9,15 @@ function App() {
     const { branches } = useTypedSelector(state => state.branch);
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch(fetchBranches());
+        dispatch({ type: ActionType.FETCH_BRANCHES });
     }, []);
-
 
     return (
         <div className='App'>
+            <Header />
             {
                 branches.map(({ members, id }) =>
-                    <ul key={id}>
+                    <ul style={{ display: 'flex' }} key={id}>
                         <BranchItem member={members[0]} />
                     </ul>,
                 )

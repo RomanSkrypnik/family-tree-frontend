@@ -1,0 +1,20 @@
+.button {
+
+  &._success {
+    background-color: green;
+  }
+
+  &._danger {
+    background-color: red;
+  }
+
+  &._warning {
+    background-color: #e6b400;
+  }
+
+  background-color: steelblue;
+  font-size: 15px;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 10px;
+}

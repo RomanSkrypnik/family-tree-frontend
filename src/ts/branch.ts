@@ -7,4 +7,7 @@ export interface BranchDto {
 
 export interface BranchState {
     branches: BranchDto[];
+    member: MemberDto | null;
+    isEditing: false;
+    operation: string;
 }
