@@ -13,17 +13,19 @@ export function useConvertIntoBranch() {
         if (obj.children.length === 0) return obj;
         const children: (RecursiveMember | MemberDto)[] = [];
         for (let child of obj.children) {
-            const foundChild = members.find(({ id }) => id === child.userId);
-            foundChild && children.push(test(foundChild));
+            const idx = members.findIndex(({ id }) => id === child.userId);
+            if (idx !== -1) {
+                children.push(test(members[idx]));
+                sorted.splice(idx, 1);
+            }
         }
         return { ...obj, children } as RecursiveMember;
     };
 
     useEffect(() => {
-        if (sorted.length > 0) {
-            console.log(test(members[0]));
-            // test(members[0]);
-        }
+        sorted.forEach(member => {
+            console.log(test(member));
+        });
     }, [sorted]);
 
     // for (let i = 0; i < sorted.length; i++) {
