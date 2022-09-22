@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import branch from './branch';
+import member from './member';
 
 
 const reducer = combineReducers({
-    branch
+    member,
 });
 
 export default reducer;

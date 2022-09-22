@@ -1,1 +1,1 @@
-export * from './BranchService';
+export * from './MemberService';

@@ -2,7 +2,7 @@ import { $CombinedState, applyMiddleware, compose, createStore, PreloadedState }
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducers';
 import rootSaga from './sagas';
-import { BranchState } from '../ts';
+import { MemberState } from '../ts';
 
 // @ts-ignore
 const composeEnhancers = typeof window === 'object' && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] ? window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']({}) : compose;
@@ -18,7 +18,7 @@ const configureStore = (preloadedState: PreloadedState<any>) => createStore(
 const store = configureStore({});
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = { readonly [$CombinedState]?: undefined; } & { branch: BranchState };
+export type RootState = { readonly [$CombinedState]?: undefined; } & { member: MemberState };
 
 sagaMiddleware.run(rootSaga);
 

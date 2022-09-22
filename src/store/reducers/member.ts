@@ -1,4 +1,4 @@
-import { BranchDto, BranchState, MemberDto } from '../../ts';
+import { BranchDto, MemberState, MemberDto } from '../../ts';
 
 export enum ActionType {
     SET_BRANCHES = 'SET_BRANCHES',
@@ -14,7 +14,7 @@ interface ActionSetBranches {
 
 interface ActionSetMember {
     type: ActionType.SET_MEMBER;
-    payload: MemberDto;
+    payload: MemberDto | null;
 }
 
 interface ActionEdit {
@@ -28,12 +28,12 @@ interface ActionFetchBranches {
 
 type Action = ActionSetBranches | ActionSetMember | ActionEdit | ActionFetchBranches;
 
-const initialState: BranchState = { branches: [], isEditing: false, operation: '', member: null };
+const initialState: MemberState = { members: [], isEditing: false, operation: '', member: null };
 
-export const branch = (state = initialState, action: Action) => {
+export const member = (state = initialState, action: Action) => {
     switch (action.type) {
         case ActionType.SET_BRANCHES:
-            return { ...state, branches: action.payload };
+            return { ...state, members: action.payload };
         case ActionType.SET_MEMBER:
             return { ...state, member: action.payload };
         case ActionType.SET_EDIT:
@@ -44,4 +44,4 @@ export const branch = (state = initialState, action: Action) => {
     }
 };
 
-export default branch;
+export default member;

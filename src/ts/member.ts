@@ -7,3 +7,10 @@ export interface MemberDto {
     children: ChildrenDto[];
     branchId: number;
 }
+
+export interface MemberState {
+    members: MemberDto[];
+    member: MemberDto | null;
+    isEditing: false;
+    operation: string;
+}
