@@ -1,23 +1,21 @@
 import { useTypedSelector } from './useTypedSelector';
-import member from '../store/reducers/member';
 import { useEffect } from 'react';
+import { MemberDto } from '../ts';
 
 export function useConvertIntoBranch() {
     const { members } = useTypedSelector(state => state.member);
 
+    const obj = {};
+
     const sorted = members.sort((m1, m2) => new Date(m1.birth).getTime() - new Date(m2.birth).getTime());
 
     // @ts-ignore
-    const test = (obj: any) => {
+    const test = (obj: MemberDto) => {
         if (obj.children.length === 0) return obj;
-        const children = [];
-        for (let i = 0; i < obj.children.length; i++) {
-            const child = members.find(child => child.id === obj.children[i].userId);
-            children.push(child);
-        }
         const childrenTemp = [];
-        for (let i = 0; i < children.length; i++) {
-            childrenTemp.push(test(children[i]));
+        for (let child of obj.children) {
+            const foundChild = members.find(({ id }) => id === child.userId);
+            foundChild && childrenTemp.push(test(foundChild));
         }
         return { ...obj, children: childrenTemp };
     };
@@ -25,7 +23,17 @@ export function useConvertIntoBranch() {
     useEffect(() => {
         if (sorted.length > 0) {
             console.log(test(members[0]));
+            // test(members[0]);
         }
     }, [sorted]);
 
+    // for (let i = 0; i < sorted.length; i++) {
+    //     const branchId = members[i].branchId;
+    //     // @ts-ignore
+    //     obj[branchId] = obj[branchId] ? [...obj[branchId], members[i]] : [members[i]];
+    // }
+    //
+    // for (let key in obj) {
+    //
+    // }
 }
