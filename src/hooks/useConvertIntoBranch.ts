@@ -1,6 +1,6 @@
 import { useTypedSelector } from './useTypedSelector';
 import { useEffect } from 'react';
-import { MemberDto } from '../ts';
+import { MemberDto, RecursiveMember } from '../ts';
 
 export function useConvertIntoBranch() {
     const { members } = useTypedSelector(state => state.member);
@@ -9,15 +9,14 @@ export function useConvertIntoBranch() {
 
     const sorted = members.sort((m1, m2) => new Date(m1.birth).getTime() - new Date(m2.birth).getTime());
 
-    // @ts-ignore
-    const test = (obj: MemberDto) => {
+    const test = (obj: MemberDto): RecursiveMember | MemberDto => {
         if (obj.children.length === 0) return obj;
-        const childrenTemp = [];
+        const children: (RecursiveMember | MemberDto)[] = [];
         for (let child of obj.children) {
             const foundChild = members.find(({ id }) => id === child.userId);
-            foundChild && childrenTemp.push(test(foundChild));
+            foundChild && children.push(test(foundChild));
         }
-        return { ...obj, children: childrenTemp };
+        return { ...obj, children } as RecursiveMember;
     };
 
     useEffect(() => {

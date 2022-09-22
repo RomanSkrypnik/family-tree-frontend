@@ -14,3 +14,7 @@ export interface MemberState {
     isEditing: false;
     operation: string;
 }
+
+export interface RecursiveMember extends Omit<MemberDto, 'children'> {
+    children: MemberDto[];
+}
