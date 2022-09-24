@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch } from './hooks';
-import { Header, DialogSwitch } from './components';
+import { Header, DialogSwitch, BranchItem } from './components';
 import { ActionType } from './store/reducers/member';
-import { useGetParentList } from './hooks/useGetParentList';
-import { useConvertIntoBranch } from './hooks/useConvertIntoBranch';
+import { useConvertIntoRecursive } from './hooks/useConvertIntoRecursive';
 
 function App() {
     const dispatch = useAppDispatch();
-
-    // const { branches } = useTypedSelector(state => state.branch);
-
-    useConvertIntoBranch();
+    const members = useConvertIntoRecursive();
 
     useEffect(() => {
         dispatch({ type: ActionType.FETCH_BRANCHES });
@@ -19,13 +15,11 @@ function App() {
     return (
         <div className='App'>
             <Header />
-            {/*{*/}
-            {/*    branches.map(({ members, id }) =>*/}
-            {/*        <ul style={{ display: 'flex' }} key={id}>*/}
-            {/*            <BranchItem member={members[0]} />*/}
-            {/*        </ul>,*/}
-            {/*    )*/}
-            {/*}*/}
+            {
+                members.map((member) =>
+                    <BranchItem member={member} />,
+                )
+            }
             <DialogSwitch />
         </div>
     );

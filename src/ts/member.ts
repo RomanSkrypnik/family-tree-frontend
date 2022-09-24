@@ -16,5 +16,5 @@ export interface MemberState {
 }
 
 export interface RecursiveMember extends Omit<MemberDto, 'children'> {
-    children: MemberDto[];
+    children:  RecursiveMember[];
 }

@@ -1,4 +1,4 @@
-import { BranchDto, MemberState, MemberDto } from '../../ts';
+import { BranchDto, MemberState, MemberDto, RecursiveMember } from '../../ts';
 
 export enum ActionType {
     SET_BRANCHES = 'SET_BRANCHES',
@@ -14,7 +14,7 @@ interface ActionSetBranches {
 
 interface ActionSetMember {
     type: ActionType.SET_MEMBER;
-    payload: MemberDto | null;
+    payload: MemberDto | RecursiveMember | null;
 }
 
 interface ActionEdit {
