@@ -12,13 +12,14 @@ export const Portal: FC<Props> = ({ onClick, transparent = false, children }) =>
     const [container] = useState(() => document.createElement('div'));
 
     useEffect(() => {
-        const activeOverlay = document.getElementsByClassName('overlay_black');
+        const activeOverlay = document.getElementsByClassName('_black');
 
         document.body.appendChild(container);
 
         const className = getClassName(activeOverlay);
 
-        container.classList.add('overlay', className);
+        container.classList.add('overlay');
+        className && container.classList.add(className);
         onClick && container.addEventListener('click', onClick);
 
         return () => {
@@ -29,8 +30,8 @@ export const Portal: FC<Props> = ({ onClick, transparent = false, children }) =>
     const getClassName = (activeOverlay: HTMLCollectionOf<Element>) => {
         let className = '';
 
-        if (activeOverlay.length === 0 || !transparent) {
-            className = 'overlay_black';
+        if (activeOverlay.length === 0) {
+            className = '_black';
         }
 
         return className;

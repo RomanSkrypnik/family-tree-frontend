@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
 import './assets/styles/main.scss';
+import "react-datepicker/dist/react-datepicker.css";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement,

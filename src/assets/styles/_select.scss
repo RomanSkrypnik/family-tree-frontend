@@ -1,0 +1,21 @@
+.select {
+  &__button {
+    text-align: left;
+    width: 100%;
+    background-color: white;
+    border: 1px solid steelblue;
+    padding: 10px;
+  }
+
+  &__list {
+    &-item {
+      &:not(:first-child) {
+        margin-top: 5px;
+      }
+    }
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+  }
+  width: 100%;
+}

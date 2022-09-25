@@ -18,7 +18,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <Header />
             <ul className='main-row'>
-                {members.map((member) => <BranchItem member={member} />)}
+                {members.map((member) => <BranchItem member={member} key={member.id} />)}
             </ul>
             <DialogSwitch />
         </QueryClientProvider>

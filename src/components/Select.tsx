@@ -1,30 +1,48 @@
-import React, { FC, MouseEvent, useState } from 'react';
+import React, { FC, MouseEvent, useRef, useState } from 'react';
+import cn from 'classnames';
+import { Portal } from './Portal';
+import { useSelectList } from '../hooks';
 
 interface Props {
     onChange?: (value: string) => void;
     placeholder?: string;
-    items: { value: string | number, label: string }[];
+    className?: string;
+    items?: { value: string | number, label: string }[];
 }
 
-export const Select: FC<Props> = ({ onChange, placeholder, items }) => {
-    const [val, setVal] = useState('');
+export const Select: FC<Props> = ({ onChange, placeholder, className, items }) => {
+    const [val, setVal] = useState<string | null>(null);
+    const [opened, setOpened] = useState(false);
+    const ref = useRef<HTMLButtonElement>(null);
+    const { bottom, width, left } = useSelectList(ref);
 
-    const handleClick = (e: MouseEvent<HTMLLIElement>) => {
-        const { value } = e.currentTarget;
-        setVal(`${value}`);
+    const handleChange = (e: MouseEvent<HTMLLIElement>) => {
+        const { value, textContent } = e.currentTarget;
+        setVal(textContent);
+        handleClick();
         onChange && onChange(`${value}`);
     };
 
+    const handleClick = () => setOpened(!opened);
+
     return (
-        <div className='select'>
-            <div className='select__field'>{val ?? placeholder}</div>
-            <ul className='select__list'>
-                {
-                    items.map(({ value, label }) =>
-                        <li className='select__list-item' onClick={handleClick} value={value}>{label}</li>,
-                    )
-                }
-            </ul>
+        <div className={cn('select', className)}>
+            <button ref={ref} type='button' onClick={handleClick}
+                    className='select__button text'>{val ?? placeholder}</button>
+            {
+                opened &&
+                <Portal onClick={handleClick}>
+                    <ul className={cn('select__list')}
+                        style={{ transform: `translate(${left}px, ${bottom}px)`, width: `${width}px` }}>
+                        {
+                            items && items.map(({ value, label }) =>
+                                <li className='select__list-item text' onClick={handleChange} value={value}
+                                    key={value}>{label}</li>,
+                            )
+                        }
+                    </ul>
+                </Portal>
+            }
         </div>
     );
 };
