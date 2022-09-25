@@ -2,13 +2,14 @@ import React, { FC } from 'react';
 import { useAppDispatch, useTypedSelector } from '../hooks';
 import { ActionType } from '../store/reducers/member';
 import cn from 'classnames';
-import { MemberDto } from '../ts';
+import { MemberTreeDto } from '../ts';
 
 interface Props {
-    member: MemberDto;
+    member: MemberTreeDto;
+    className?: string;
 }
 
-export const BranchItem: FC<Props> = ({ member }) => {
+export const BranchItem: FC<Props> = ({ member, className }) => {
     const { children } = member;
     const dispatch = useAppDispatch();
     const { isEditing } = useTypedSelector(state => state.member);
@@ -20,7 +21,7 @@ export const BranchItem: FC<Props> = ({ member }) => {
     };
 
     return (
-        <li className='branch-item'>
+        <li className={cn('branch-item', className)}>
             <div className={cn('branch-item__inner', isEditing && '_clickable')} onClick={handleClick}>
                 <div className='branch-item__name text'>{member.name}</div>
                 <div className='branch-item__birth text'>{member.birth}</div>
@@ -28,9 +29,7 @@ export const BranchItem: FC<Props> = ({ member }) => {
             {
                 children.length > 0 &&
                 <ul className='branch-item__list'>
-                    {
-                        children.map(child => <BranchItem member={child} key={child.id} />)
-                    }
+                    {member.children.map(child => <BranchItem member={child} className='_child' key={child.id} />)}
                 </ul>
             }
         </li>

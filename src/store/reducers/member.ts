@@ -1,14 +1,17 @@
-import { MemberDto, MemberState } from '../../ts';
+import { ChildDto, MemberDto, MemberState } from '../../ts';
+import { addChildren } from '../../helpers';
 
 export enum ActionType {
-    SET_BRANCHES = 'SET_BRANCHES',
+    SET_MEMBERS = 'SET_MEMBERS',
     SET_EDIT = 'SET_EDIT',
     SET_MEMBER = 'SET_MEMBER',
-    FETCH_BRANCHES = 'FETCH_BRANCHES'
+    FETCH_MEMBERS = 'FETCH_MEMBERS',
+    CREATE_CHILD = 'CREATE_CHILD',
+    ADD_MEMBER = 'ADD_MEMBER',
 }
 
-interface ActionSetBranches {
-    type: ActionType.SET_BRANCHES;
+interface ActionSetMembers {
+    type: ActionType.SET_MEMBERS;
     payload: MemberDto[];
 }
 
@@ -22,23 +25,46 @@ interface ActionEdit {
     payload: { operation: string, isEditing: boolean };
 }
 
-interface ActionFetchBranches {
-    type: ActionType.FETCH_BRANCHES;
+interface ActionFetchMembers {
+    type: ActionType.FETCH_MEMBERS;
 }
 
-type Action = ActionSetBranches | ActionSetMember | ActionEdit | ActionFetchBranches;
+interface ActionAddMember {
+    type: ActionType.ADD_MEMBER;
+    payload: ChildDto;
+}
+
+export interface ActionCreateMember {
+    type: ActionType.CREATE_CHILD;
+    payload: { birth: string, name: string, parentId: number };
+}
+
+export type Action =
+    ActionSetMembers
+    | ActionSetMember
+    | ActionEdit
+    | ActionFetchMembers
+    | ActionAddMember
+    | ActionCreateMember;
 
 const initialState: MemberState = { members: [], isEditing: false, operation: '', member: null };
 
 export const member = (state = initialState, action: Action) => {
     switch (action.type) {
-        case ActionType.SET_BRANCHES:
+        case ActionType.SET_MEMBERS:
             return { ...state, members: action.payload };
         case ActionType.SET_MEMBER:
             return { ...state, member: action.payload };
         case ActionType.SET_EDIT:
             const { isEditing, operation } = action.payload;
             return { ...state, isEditing, operation };
+        case ActionType.ADD_MEMBER:
+            const { root } = action.payload;
+            const stateRoot = state.members.find(member => member.id === root.id);
+            if (stateRoot) {
+                console.log(addChildren(stateRoot, action.payload));
+            }
+            return { ...state };
         default:
             return state;
     }

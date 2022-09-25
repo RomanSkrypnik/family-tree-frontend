@@ -1,17 +1,11 @@
 import React from 'react';
 import { Dialog } from './Dialog';
-import { useAppDispatch, useCloseDialog, useTypedSelector } from '../hooks';
+import { useCloseDialog, useTypedSelector } from '../hooks';
 import { Button } from './Button';
-import { ActionType } from '../store/reducers/member';
 
 export const DeleteDialog = () => {
     const handleClick = useCloseDialog();
     const { member } = useTypedSelector(state => state.member);
-    const dispatch = useAppDispatch();
-
-    const handleDecline = () => {
-        dispatch({ type: ActionType.SET_MEMBER, payload: null });
-    };
 
     return (
         <>
@@ -23,7 +17,7 @@ export const DeleteDialog = () => {
                     </h2>
                     <div className='dialog__buttons'>
                         <Button className='dialog__button _success'>Yes</Button>
-                        <Button className='dialog__button _danger' onClick={handleDecline}>No</Button>
+                        <Button className='dialog__button _danger' onClick={handleClick}>No</Button>
                     </div>
                 </Dialog>
             }

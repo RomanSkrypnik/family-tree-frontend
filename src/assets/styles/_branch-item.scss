@@ -1,5 +1,9 @@
 .branch-item {
 
+  &._child {
+    margin-top: 10px;
+  }
+
   &__inner {
 
     &._clickable {
@@ -28,7 +32,6 @@
     gap: 10px;
   }
 
-  max-width: 400px;
+  max-width: 300px;
   list-style: none;
-  margin-top: 10px;
 }
