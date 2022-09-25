@@ -2,7 +2,7 @@ import { FC, ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 interface Props {
-    onClick: () => void;
+    onClick: (e: MouseEvent) => void;
     transparent?: boolean;
     children: ReactNode;
 }

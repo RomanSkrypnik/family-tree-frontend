@@ -1,10 +1,27 @@
 .dialog {
 
+  &__heading {
+    font-size: 22px;
+    line-height: 27px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  &__button {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
-  padding: 10px;
+  padding: 25px;
   border-radius: 10px;
 }

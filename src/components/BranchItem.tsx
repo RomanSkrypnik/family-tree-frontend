@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { RecursiveMember } from '../ts';
 import { useAppDispatch, useTypedSelector } from '../hooks';
 import { ActionType } from '../store/reducers/member';
 import cn from 'classnames';
+import { MemberDto } from '../ts';
 
 interface Props {
-    member: RecursiveMember;
+    member: MemberDto;
 }
 
 export const BranchItem: FC<Props> = ({ member }) => {

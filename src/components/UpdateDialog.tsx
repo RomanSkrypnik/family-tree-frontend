@@ -4,19 +4,18 @@ import { useCloseDialog, useTypedSelector } from '../hooks';
 
 export const UpdateDialog = () => {
     const handleClick = useCloseDialog();
-
-    // const { member } = useTypedSelector(state => state.branch);
+    const { member } = useTypedSelector(state => state.member);
 
     return (
         <>
-            {/*{*/}
-            {/*    member &&*/}
-            {/*    <Dialog onClick={handleClick}>*/}
-            {/*        <div>*/}
-            {/*            update*/}
-            {/*        </div>*/}
-            {/*    </Dialog>*/}
-            {/*}*/}
+            {
+                member &&
+                <Dialog onClick={handleClick}>
+                    <div>
+                        update
+                    </div>
+                </Dialog>
+            }
         </>
     );
 };
