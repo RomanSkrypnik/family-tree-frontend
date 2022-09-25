@@ -1,5 +1,5 @@
-import { ChildDto, MemberDto, MemberState } from '../../ts';
-import { addChildren } from '../../helpers';
+import { ChildDto, CreateChildDto, MemberDto, MemberState } from '../../ts';
+import { addChild } from '../../helpers';
 
 export enum ActionType {
     SET_MEMBERS = 'SET_MEMBERS',
@@ -7,7 +7,7 @@ export enum ActionType {
     SET_MEMBER = 'SET_MEMBER',
     FETCH_MEMBERS = 'FETCH_MEMBERS',
     CREATE_CHILD = 'CREATE_CHILD',
-    ADD_MEMBER = 'ADD_MEMBER',
+    ADD_CHILD = 'ADD_CHILD',
 }
 
 interface ActionSetMembers {
@@ -30,13 +30,13 @@ interface ActionFetchMembers {
 }
 
 interface ActionAddMember {
-    type: ActionType.ADD_MEMBER;
+    type: ActionType.ADD_CHILD;
     payload: ChildDto;
 }
 
-export interface ActionCreateMember {
+export interface ActionCreateChild {
     type: ActionType.CREATE_CHILD;
-    payload: { birth: string, name: string, parentId: number };
+    payload: CreateChildDto;
 }
 
 export type Action =
@@ -45,7 +45,7 @@ export type Action =
     | ActionEdit
     | ActionFetchMembers
     | ActionAddMember
-    | ActionCreateMember;
+    | ActionCreateChild;
 
 const initialState: MemberState = { members: [], isEditing: false, operation: '', member: null };
 
@@ -58,13 +58,14 @@ export const member = (state = initialState, action: Action) => {
         case ActionType.SET_EDIT:
             const { isEditing, operation } = action.payload;
             return { ...state, isEditing, operation };
-        case ActionType.ADD_MEMBER:
+        case ActionType.ADD_CHILD:
             const { root } = action.payload;
-            const stateRoot = state.members.find(member => member.id === root.id);
-            if (stateRoot) {
-                console.log(addChildren(stateRoot, action.payload));
+            const stateRootIdx = state.members.findIndex(member => member.id === root.id);
+            if (stateRootIdx !== -1) {
+                const members = addChild(state.members[stateRootIdx], action.payload);
+                return { ...state, ...state.members.splice(stateRootIdx, 1, members) };
             }
-            return { ...state };
+            return state;
         default:
             return state;
     }

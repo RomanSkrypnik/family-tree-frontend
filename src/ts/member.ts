@@ -26,10 +26,11 @@ export interface CreateMemberDto {
 }
 
 export interface CreateChildDto extends CreateMemberDto {
-    parentId: number;
+    parentId?: number;
 }
 
 export interface ChildDto extends Omit<MemberDto, 'children'> {
     parent: MemberDto;
     root: MemberDto;
+    children: MemberTreeDto[];
 }

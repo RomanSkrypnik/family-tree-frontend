@@ -1,3 +1,43 @@
+.h1, h1,
+.h2, h2,
+.h3, h3,
+.h4, h4,
+.h5, h5,
+.h6, h6
+{
+  font-family: 'Arial', serif;
+}
+
+.h1, h1 {
+  font-size: 35px;
+  line-height: 42px;
+}
+
+.h2, h2 {
+  font-size: 30px;
+  line-height: 37px;
+}
+
+.h3, h3 {
+  font-size: 25px;
+  line-height: 32px;
+}
+
+.h4, h4 {
+  font-size: 20px;
+  line-height: 27px;
+}
+
+.h5, h5 {
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.h6, h6 {
+  font-size: 15px;
+  line-height: 22px;
+}
+
 .text {
   font-family: 'Arial', serif;
 }

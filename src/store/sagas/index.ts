@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { MemberService } from '../../services';
 import { AxiosResponse } from 'axios';
-import { ActionCreateMember, ActionType } from '../reducers/member';
+import { ActionCreateChild, ActionType } from '../reducers/member';
 import { ChildDto, MemberDto } from '../../ts';
 
 export function* fetchBranches() {
@@ -13,10 +13,10 @@ export function* fetchBranches() {
     }
 }
 
-export function* createChild(action: ActionCreateMember) {
+export function* createChild(action: ActionCreateChild) {
     try {
         const data: AxiosResponse<ChildDto> = yield call(MemberService.createChild, action.payload);
-        yield put({ type: ActionType.ADD_MEMBER, payload: data.data });
+        yield put({ type: ActionType.ADD_CHILD, payload: data.data });
     } catch (e) {
         throw e;
     }

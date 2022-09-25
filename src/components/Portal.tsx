@@ -3,11 +3,10 @@ import { createPortal } from 'react-dom';
 
 interface Props {
     onClick: (e: MouseEvent) => void;
-    transparent?: boolean;
     children: ReactNode;
 }
 
-export const Portal: FC<Props> = ({ onClick, transparent = false, children }) => {
+export const Portal: FC<Props> = ({ onClick,  children }) => {
 
     const [container] = useState(() => document.createElement('div'));
 

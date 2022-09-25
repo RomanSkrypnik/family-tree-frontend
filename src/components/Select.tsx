@@ -4,14 +4,17 @@ import { Portal } from './Portal';
 import { useSelectList } from '../hooks';
 
 interface Props {
+    value?: ValueType;
     onChange?: (value: string) => void;
     placeholder?: string;
     className?: string;
     items?: { value: string | number, label: string }[];
 }
 
-export const Select: FC<Props> = ({ onChange, placeholder, className, items }) => {
-    const [val, setVal] = useState<string | null>(null);
+type ValueType = string | number | null | undefined;
+
+export const Select: FC<Props> = ({ value, onChange, placeholder, className, items }) => {
+    const [val, setVal] = useState<ValueType>(value);
     const [opened, setOpened] = useState(false);
     const ref = useRef<HTMLButtonElement>(null);
     const { bottom, width, left } = useSelectList(ref);
