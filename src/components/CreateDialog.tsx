@@ -31,6 +31,7 @@ export const CreateDialog = () => {
 
     return (
         <Dialog onClick={handleClick}>
+            <h2 className='text-center text'>Create member</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='dialog__inputs'>
                     <Controller

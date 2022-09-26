@@ -1,10 +1,10 @@
 import {
-    ChildDto,
+    CreateChildResponse,
     CreateChildDto,
     CreateMemberDto,
     DeleteMemberDto,
     MemberDto,
-    MemberTreeDto, RemoveMemberDto, UpdateMemberDto,
+    MemberTreeDto, RemoveMemberDto, UpdateMemberDto, UpdateMemberResponse,
 } from './member';
 
 export enum ActionType {
@@ -18,7 +18,8 @@ export enum ActionType {
     ADD_MEMBER = 'ADD_MEMBER',
     REMOVE_MEMBER = 'REMOVE_MEMBER',
     DELETE_MEMBER = 'DELETE_MEMBER',
-    UPDATE_MEMBER = 'UPDATE_MEMBER'
+    UPDATE_MEMBER = 'UPDATE_MEMBER',
+    CHANGE_MEMBER = 'CHANGE_MEMBER'
 }
 
 interface ActionSetMembers {
@@ -42,7 +43,7 @@ interface ActionFetchMembers {
 
 interface ActionAddChild {
     type: ActionType.ADD_CHILD;
-    payload: ChildDto;
+    payload: CreateChildResponse;
 }
 
 export interface ActionCreateChild {
@@ -75,6 +76,11 @@ export interface ActionUpdateMember {
     payload: UpdateMemberDto;
 }
 
+export interface ActionChangeMember {
+    type: ActionType.CHANGE_MEMBER;
+    payload: UpdateMemberResponse;
+}
+
 export type Action =
     ActionSetMembers
     | ActionSetMember
@@ -86,4 +92,5 @@ export type Action =
     | ActionAddMember
     | ActionDeleteMember
     | ActionRemoveMember
-    | ActionUpdateMember;
+    | ActionUpdateMember
+    | ActionChangeMember;

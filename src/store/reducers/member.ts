@@ -1,5 +1,5 @@
 import { Action, ActionType, MemberState } from '../../ts';
-import { addChild, removeChild } from '../../helpers';
+import { addMember, changeMember, removeMember } from '../../helpers';
 
 const initialState: MemberState = { members: [], isEditing: false, operation: '', member: null };
 
@@ -14,25 +14,34 @@ export const member = (state = initialState, action: Action) => {
             return { ...state, isEditing, operation };
         }
         case ActionType.ADD_CHILD: {
-            const { root } = action.payload;
-            const stateRootIdx = state.members.findIndex(({ id }) => id === root.id);
-            if (stateRootIdx !== -1) {
-                const members = addChild(state.members[stateRootIdx], action.payload);
-                return { ...state, ...state.members.splice(stateRootIdx, 1, members) };
+            const { rootId, ...member } = action.payload;
+            const rootIdx = state.members.findIndex(({ id }) => id === rootId);
+            if (rootIdx !== -1) {
+                const members = addMember(state.members[rootIdx], member);
+                return { ...state, ...state.members.splice(rootIdx, 1, members) };
             }
             return state;
         }
         case ActionType.ADD_MEMBER:
             return { ...state, members: [...state.members, action.payload] };
         case ActionType.REMOVE_MEMBER: {
-            const { root, id } = action.payload;
-            const stateRootIdx = state.members.findIndex(({ id }) => id === root.id);
-            if (stateRootIdx !== -1) {
-                const members = removeChild(state.members[stateRootIdx], id);
+            const { rootId, id } = action.payload;
+            const rootIdx = state.members.findIndex(({ id }) => id === rootId);
+            if (rootIdx !== -1) {
+                const members = removeMember(state.members[rootIdx], id);
                 if (members) {
-                    return { ...state, ...state.members.splice(stateRootIdx, 1, members) };
+                    return { ...state, ...state.members.splice(rootIdx, 1, members) };
                 }
-                return { ...state, ...state.members.splice(stateRootIdx, 1) };
+                return { ...state, ...state.members.splice(rootIdx, 1) };
+            }
+            return state;
+        }
+        case ActionType.CHANGE_MEMBER: {
+            const { rootId, ...member } = action.payload;
+            const rootIdx = state.members.findIndex(({ id }) => id === rootId);
+            if (rootIdx !== -1) {
+                const members = changeMember(state.members[rootIdx], member);
+                return { ...state, ...state.members.splice(rootIdx, 1, members) };
             }
             return state;
         }

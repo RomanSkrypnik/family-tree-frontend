@@ -4,12 +4,12 @@ export interface MemberDto {
     birth: string;
 }
 
-export interface UpdateMemberResponse extends MemberDto {
-    root: MemberDto;
-}
-
 export interface MemberTreeDto extends MemberDto {
     children: MemberTreeDto[];
+}
+
+export interface UpdateMemberResponse extends MemberTreeDto {
+    rootId: number;
 }
 
 export interface MemberState {
@@ -22,7 +22,7 @@ export interface MemberState {
 export interface UpdateMemberDto {
     id: number;
     name: string;
-    birth: string;
+    birth: Date;
 }
 
 export interface CreateMemberDto {
@@ -35,10 +35,9 @@ export interface CreateChildDto extends Omit<CreateMemberDto, 'birth'> {
     birth: Date;
 }
 
-export interface ChildDto extends Omit<MemberDto, 'children'> {
+export interface CreateChildResponse extends MemberTreeDto {
     parent: MemberDto;
-    root: MemberDto;
-    children: MemberTreeDto[];
+    rootId: number;
 }
 
 export interface DeleteMemberDto {
@@ -47,5 +46,5 @@ export interface DeleteMemberDto {
 
 export interface RemoveMemberDto {
     id: number;
-    root: MemberDto;
+    rootId: number;
 }

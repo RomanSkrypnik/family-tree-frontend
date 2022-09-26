@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import {
     ActionDeleteMember,
     ActionUpdateMember,
-    ChildDto,
+    CreateChildResponse,
     MemberDto,
     MemberTreeDto,
     RemoveMemberDto,
@@ -23,7 +23,7 @@ export function* fetchBranches() {
 
 export function* createChild(action: ActionCreateChild) {
     try {
-        const data: AxiosResponse<ChildDto> = yield call(MemberService.createChild, action.payload);
+        const data: AxiosResponse<CreateChildResponse> = yield call(MemberService.createChild, action.payload);
         yield put({ type: ActionType.ADD_CHILD, payload: data.data });
     } catch (e) {
         throw e;
@@ -51,7 +51,7 @@ export function* deleteMember(action: ActionDeleteMember) {
 export function* updateMember(action: ActionUpdateMember) {
     try {
         const data: AxiosResponse<UpdateMemberResponse> = yield call(MemberService.update, action.payload);
-        yield put({ type: ActionType.UPDATE_MEMBER, payload: data.data });
+        yield put({ type: ActionType.CHANGE_MEMBER, payload: data.data });
     } catch (e) {
         throw e;
     }
