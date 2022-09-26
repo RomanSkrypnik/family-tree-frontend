@@ -9,6 +9,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { ActionType } from '../ts';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createSchema } from '../schemas';
+import cn from 'classnames';
 
 interface FormValues {
     name: string;
@@ -40,19 +41,24 @@ export const CreateDialog = () => {
                         name='name'
                         control={control}
                         defaultValue=''
-                        render={({ field: { onChange, value } }) =>
-                            <TextInput onChange={onChange} value={value} placeholder='Name' />
+                        render={({ field: { onChange, value }, fieldState: { error } }) =>
+                            <TextInput
+                                className={error && '_error'}
+                                onChange={onChange}
+                                value={value}
+                                placeholder='Name'
+                            />
                         }
                     />
                     <Controller
                         name='birth'
                         control={control}
                         defaultValue={new Date()}
-                        render={({ field: { onChange, value } }) =>
+                        render={({ field: { onChange, value }, fieldState: { error } }) =>
                             <DatePicker
                                 placeholderText='Birth'
                                 dateFormat='yyyy-MM-dd'
-                                className='input _date'
+                                className={cn('input _date', error && '_error')}
                                 selected={value}
                                 onChange={onChange}
                             />
@@ -62,11 +68,11 @@ export const CreateDialog = () => {
                 <Controller
                     name='parentId'
                     control={control}
-                    render={({ field: { onChange, value } }) =>
+                    render={({ field: { onChange, value }, fieldState: { error } }) =>
                         <Select
                             value={value}
                             onChange={onChange}
-                            className='dialog__select'
+                            className={cn('dialog__select', error && '_error')}
                             placeholder='Select parent'
                             items={data}
                         />

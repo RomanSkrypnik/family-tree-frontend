@@ -1,5 +1,9 @@
 .input {
 
+  &._error {
+    border-color: red;
+  }
+
   &._date {
     width: auto;
   }

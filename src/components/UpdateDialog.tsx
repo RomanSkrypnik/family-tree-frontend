@@ -7,7 +7,8 @@ import { TextInput } from './TextInput';
 import DatePicker from 'react-datepicker';
 import { Button } from './Button';
 import { updateSchema } from '../schemas';
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import cn from 'classnames';
 
 interface FormValues {
     name: string;
@@ -39,19 +40,24 @@ export const UpdateDialog = () => {
                                 name='name'
                                 control={control}
                                 defaultValue={member.name}
-                                render={({ field: { onChange, value } }) =>
-                                    <TextInput onChange={onChange} value={value} placeholder='Name' />
+                                render={({ field: { onChange, value }, fieldState: { error } }) =>
+                                    <TextInput
+                                        className={error && '_error'}
+                                        onChange={onChange}
+                                        value={value}
+                                        placeholder='Name'
+                                    />
                                 }
                             />
                             <Controller
                                 name='birth'
                                 control={control}
                                 defaultValue={new Date(member.birth)}
-                                render={({ field: { onChange, value } }) =>
+                                render={({ field: { onChange, value }, fieldState: { error } }) =>
                                     <DatePicker
                                         placeholderText='Birth'
                                         dateFormat='yyyy-MM-dd'
-                                        className='input _date'
+                                        className={cn('input _date', error && '_error')}
                                         selected={value}
                                         onChange={onChange}
                                     />

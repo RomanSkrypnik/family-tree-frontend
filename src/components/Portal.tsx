@@ -6,7 +6,7 @@ interface Props {
     children: ReactNode;
 }
 
-export const Portal: FC<Props> = ({ onClick,  children }) => {
+export const Portal: FC<Props> = ({ onClick, children }) => {
 
     const [container] = useState(() => document.createElement('div'));
 
@@ -19,7 +19,11 @@ export const Portal: FC<Props> = ({ onClick,  children }) => {
 
         container.classList.add('overlay');
         className && container.classList.add(className);
-        onClick && container.addEventListener('click', onClick);
+
+        const button = document.createElement('button');
+        container.appendChild(button);
+        button.classList.add('overlay__button');
+        button.addEventListener('click', onClick);
 
         return () => {
             document.body.removeChild(container);
