@@ -5,16 +5,15 @@ import {
     ActionDeleteMember,
     ActionUpdateMember,
     CreateChildResponse,
-    MemberDto,
     MemberTreeDto,
-    RemoveMemberDto,
+    RemoveMemberResponse,
     UpdateMemberResponse,
 } from '../../ts';
 import { ActionCreateChild, ActionCreateMember, ActionType } from '../../ts';
 
 export function* fetchBranches() {
     try {
-        const data: AxiosResponse<MemberDto[]> = yield call(MemberService.getTrees);
+        const data: AxiosResponse<MemberTreeDto[]> = yield call(MemberService.getTrees);
         yield put({ type: ActionType.SET_MEMBERS, payload: data.data });
     } catch (e) {
         throw e;
@@ -41,7 +40,7 @@ export function* createMember(action: ActionCreateMember) {
 
 export function* deleteMember(action: ActionDeleteMember) {
     try {
-        const data: AxiosResponse<RemoveMemberDto> = yield call(MemberService.delete, action.payload.id);
+        const data: AxiosResponse<RemoveMemberResponse> = yield call(MemberService.delete, action.payload.id);
         yield put({ type: ActionType.REMOVE_MEMBER, payload: data.data });
     } catch (e) {
         throw e;

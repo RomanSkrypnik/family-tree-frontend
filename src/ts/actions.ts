@@ -4,7 +4,7 @@ import {
     CreateMemberDto,
     DeleteMemberDto,
     MemberDto,
-    MemberTreeDto, RemoveMemberDto, UpdateMemberDto, UpdateMemberResponse,
+    MemberTreeDto, RemoveMemberResponse, UpdateMemberDto, UpdateMemberResponse,
 } from './member';
 
 export enum ActionType {
@@ -68,7 +68,7 @@ export interface ActionDeleteMember {
 
 export interface ActionRemoveMember {
     type: ActionType.REMOVE_MEMBER;
-    payload: RemoveMemberDto;
+    payload: RemoveMemberResponse;
 }
 
 export interface ActionUpdateMember {

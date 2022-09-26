@@ -44,7 +44,7 @@ export interface DeleteMemberDto {
     id: number;
 }
 
-export interface RemoveMemberDto {
+export interface RemoveMemberResponse {
     id: number;
     rootId: number;
 }
