@@ -1,8 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { MemberService } from '../../services';
 import { AxiosResponse } from 'axios';
-import { ActionCreateChild, ActionType } from '../reducers/member';
-import { ChildDto, MemberDto } from '../../ts';
+import { ActionCreateChild, ActionCreateMember, ActionType } from '../reducers/member';
+import { ChildDto, MemberDto, MemberTreeDto } from '../../ts';
 
 export function* fetchBranches() {
     try {
@@ -22,9 +22,19 @@ export function* createChild(action: ActionCreateChild) {
     }
 }
 
+export function* createMember(action: ActionCreateMember) {
+    try {
+        const data: AxiosResponse<MemberTreeDto> = yield call(MemberService.create, action.payload);
+        yield put({ type: ActionType.ADD_MEMBER, payload: data.data });
+    } catch (e) {
+        throw e;
+    }
+}
+
 export function* watchClickSaga() {
     yield takeLatest(ActionType.FETCH_MEMBERS, fetchBranches);
     yield takeLatest(ActionType.CREATE_CHILD, createChild);
+    yield takeLatest(ActionType.CREATE_MEMBER, createMember);
 }
 
 export default function* rootSaga() {

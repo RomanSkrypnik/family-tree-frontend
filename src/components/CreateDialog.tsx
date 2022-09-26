@@ -23,6 +23,8 @@ export const CreateDialog = () => {
     const onSubmit = (payload: FormValues) => {
         if (payload.parentId) {
             dispatch({ type: ActionType.CREATE_CHILD, payload });
+        } else {
+            console.log('here');
         }
         handleClick();
     };

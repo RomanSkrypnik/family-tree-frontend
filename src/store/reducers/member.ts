@@ -1,4 +1,4 @@
-import { ChildDto, CreateChildDto, MemberDto, MemberState } from '../../ts';
+import { ChildDto, CreateChildDto, CreateMemberDto, MemberDto, MemberState, MemberTreeDto } from '../../ts';
 import { addChild } from '../../helpers';
 
 export enum ActionType {
@@ -8,6 +8,8 @@ export enum ActionType {
     FETCH_MEMBERS = 'FETCH_MEMBERS',
     CREATE_CHILD = 'CREATE_CHILD',
     ADD_CHILD = 'ADD_CHILD',
+    CREATE_MEMBER = 'CREATE_MEMBER',
+    ADD_MEMBER = 'ADD_MEMBER'
 }
 
 interface ActionSetMembers {
@@ -29,7 +31,7 @@ interface ActionFetchMembers {
     type: ActionType.FETCH_MEMBERS;
 }
 
-interface ActionAddMember {
+interface ActionAddChild {
     type: ActionType.ADD_CHILD;
     payload: ChildDto;
 }
@@ -39,13 +41,25 @@ export interface ActionCreateChild {
     payload: CreateChildDto;
 }
 
+export interface ActionCreateMember {
+    type: ActionType.CREATE_MEMBER;
+    payload: CreateMemberDto;
+}
+
+export interface ActionAddMember {
+    type: ActionType.ADD_MEMBER;
+    payload: MemberTreeDto;
+}
+
 export type Action =
     ActionSetMembers
     | ActionSetMember
     | ActionEdit
     | ActionFetchMembers
-    | ActionAddMember
-    | ActionCreateChild;
+    | ActionAddChild
+    | ActionCreateChild
+    | ActionCreateMember
+    | ActionAddMember;
 
 const initialState: MemberState = { members: [], isEditing: false, operation: '', member: null };
 
@@ -66,6 +80,8 @@ export const member = (state = initialState, action: Action) => {
                 return { ...state, ...state.members.splice(stateRootIdx, 1, members) };
             }
             return state;
+        case ActionType.ADD_MEMBER:
+            return { ...state, members: [...state.members, action.payload] };
         default:
             return state;
     }
