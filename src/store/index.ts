@@ -4,8 +4,13 @@ import reducer from './reducers';
 import rootSaga from './sagas';
 import { MemberState } from '../ts';
 
-// @ts-ignore
-const composeEnhancers = typeof window === 'object' && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] ? window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']({}) : compose;
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
+const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] ?? compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
