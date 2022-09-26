@@ -7,6 +7,8 @@ import { Select } from './Select';
 import { Button } from './Button';
 import { useForm, Controller } from 'react-hook-form';
 import { ActionType } from '../ts';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { createSchema } from '../schemas';
 
 interface FormValues {
     name: string;
@@ -17,7 +19,7 @@ interface FormValues {
 export const CreateDialog = () => {
     const handleClick = useCloseDialog(true);
     const { data } = useFetchMembers();
-    const { handleSubmit, control } = useForm<FormValues>();
+    const { handleSubmit, control } = useForm<FormValues>({ resolver: yupResolver(createSchema) });
     const dispatch = useAppDispatch();
 
     const onSubmit = (payload: FormValues) => {

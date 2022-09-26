@@ -6,6 +6,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { TextInput } from './TextInput';
 import DatePicker from 'react-datepicker';
 import { Button } from './Button';
+import { updateSchema } from '../schemas';
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface FormValues {
     name: string;
@@ -16,7 +18,7 @@ export const UpdateDialog = () => {
     const dispatch = useAppDispatch();
     const handleClick = useCloseDialog();
     const { member } = useTypedSelector(state => state.member);
-    const { handleSubmit, control } = useForm<FormValues>();
+    const { handleSubmit, control } = useForm<FormValues>({ resolver: yupResolver(updateSchema) });
 
     const onSubmit = (data: FormValues) => {
         if (member) {
