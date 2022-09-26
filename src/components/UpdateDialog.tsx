@@ -21,6 +21,7 @@ export const UpdateDialog = () => {
     const onSubmit = (data: FormValues) => {
         if (member) {
             dispatch({ type: ActionType.UPDATE_MEMBER, payload: { ...data, id: member.id } });
+            handleClick();
         }
     };
 
