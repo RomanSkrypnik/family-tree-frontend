@@ -11,7 +11,7 @@ export const DeleteDialog = () => {
 
     const handleSubmit = () => {
         if (member) {
-            dispatch({ type: ActionType.DELETE_MEMBER, payload: { id: member.id } });
+            dispatch({ type: ActionType.DELETE_MEMBER, payload: member.id });
             handleClick();
         }
     };

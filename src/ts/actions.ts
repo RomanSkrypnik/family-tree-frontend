@@ -2,7 +2,6 @@ import {
     CreateChildResponse,
     CreateChildDto,
     CreateMemberDto,
-    DeleteMemberDto,
     MemberDto,
     MemberTreeDto, RemoveMemberResponse, UpdateMemberDto, UpdateMemberResponse,
 } from './member';
@@ -63,7 +62,7 @@ export interface ActionAddMember {
 
 export interface ActionDeleteMember {
     type: ActionType.DELETE_MEMBER;
-    payload: DeleteMemberDto;
+    payload: number;
 }
 
 export interface ActionRemoveMember {

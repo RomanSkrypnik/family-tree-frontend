@@ -40,7 +40,7 @@ export function* createMember(action: ActionCreateMember) {
 
 export function* deleteMember(action: ActionDeleteMember) {
     try {
-        const data: AxiosResponse<RemoveMemberResponse> = yield call(MemberService.delete, action.payload.id);
+        const data: AxiosResponse<RemoveMemberResponse> = yield call(MemberService.delete, action.payload);
         yield put({ type: ActionType.REMOVE_MEMBER, payload: data.data });
     } catch (e) {
         throw e;

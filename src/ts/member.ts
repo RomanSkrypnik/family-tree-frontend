@@ -40,10 +40,6 @@ export interface CreateChildResponse extends MemberTreeDto {
     rootId: number;
 }
 
-export interface DeleteMemberDto {
-    id: number;
-}
-
 export interface RemoveMemberResponse {
     id: number;
     rootId: number;
