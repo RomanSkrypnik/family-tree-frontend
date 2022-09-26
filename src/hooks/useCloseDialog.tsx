@@ -1,5 +1,5 @@
 import { useAppDispatch } from './useAppDispatch';
-import { ActionType } from '../store/reducers/member';
+import { ActionType } from '../ts';
 
 export const useCloseDialog = (create?: boolean) => {
     const dispatch = useAppDispatch();

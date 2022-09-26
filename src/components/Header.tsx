@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
 import { useAppDispatch, useTypedSelector } from '../hooks';
-import { ActionType } from '../store/reducers/member';
+import { ActionType } from '../ts';
 
 export const Header = () => {
     const { isEditing } = useTypedSelector(state => state.member);

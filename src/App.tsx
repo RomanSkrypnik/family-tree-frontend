@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useTypedSelector } from './hooks';
 import { Header, DialogSwitch, BranchItem } from './components';
-import { ActionType } from './store/reducers/member';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ActionType } from './ts';
 
 const queryClient = new QueryClient();
 

@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { useAppDispatch, useTypedSelector } from '../hooks';
-import { ActionType } from '../store/reducers/member';
 import cn from 'classnames';
-import { MemberTreeDto } from '../ts';
+import { ActionType, MemberTreeDto } from '../ts';
 
 interface Props {
     member: MemberTreeDto;

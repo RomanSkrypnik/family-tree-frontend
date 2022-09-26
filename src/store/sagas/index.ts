@@ -1,8 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { MemberService } from '../../services';
 import { AxiosResponse } from 'axios';
-import { ActionCreateChild, ActionCreateMember, ActionType } from '../reducers/member';
 import { ChildDto, MemberDto, MemberTreeDto } from '../../ts';
+import { ActionCreateChild, ActionCreateMember, ActionType } from '../../ts';
 
 export function* fetchBranches() {
     try {

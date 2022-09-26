@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import { Select } from './Select';
 import { Button } from './Button';
 import { useForm, Controller } from 'react-hook-form';
-import { ActionType } from '../store/reducers/member';
+import { ActionType } from '../ts';
 
 interface FormValues {
     name: string;
