@@ -1,5 +1,5 @@
 import $api from '../http';
-import { UpdateMemberDto, CreateChildDto, MemberDto, CreateMemberDto } from '../ts';
+import { UpdateMemberDto, CreateChildDto, MemberDto, CreateMemberDto, MemberTreeDto, CreateChildResponse } from '../ts';
 import { AxiosResponse } from 'axios';
 
 export class MemberService {
@@ -26,6 +26,40 @@ export class MemberService {
 
     static async update(body: UpdateMemberDto) {
         return await $api.patch('/members', body);
+    }
+
+    static addMember(member: MemberTreeDto, child: Omit<CreateChildResponse, 'rootId'>) {
+        if (member.id === child.parent.id) {
+            const { parent, ...mChild } = child;
+            return { ...member, children: [...member.children, mChild] };
+        }
+        if (!member.children) return member;
+        let children: MemberTreeDto[] = [];
+        for (const mChild of member.children) {
+            children = [...children, this.addMember(mChild, child)];
+        }
+        return { ...member, children };
+    }
+
+    static removeMember(member: MemberTreeDto, id: number) {
+        if (member.id === id) return null;
+        if (!member.children) return member;
+        let children: MemberTreeDto[] = [];
+        for (const mChild of member.children) {
+            const child = this.removeMember(mChild, id);
+            child && children.push(child);
+        }
+        return { ...member, children };
+    }
+
+    static changeMember(member: MemberTreeDto, child: MemberDto) {
+        if (member.id === child.id) return { ...member, ...child };
+        if (!member.children) return member;
+        let children: MemberTreeDto[] = [];
+        for (const mChild of member.children) {
+            children = [...children, this.changeMember(mChild, child)];
+        }
+        return { ...member, children };
     }
 
 }

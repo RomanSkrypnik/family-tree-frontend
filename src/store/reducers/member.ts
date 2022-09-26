@@ -1,5 +1,5 @@
 import { Action, ActionType, MemberState } from '../../ts';
-import { addMember, changeMember, removeMember } from '../../helpers';
+import { MemberService } from '../../services';
 
 const initialState: MemberState = { members: [], isEditing: false, operation: '', member: null };
 
@@ -17,7 +17,7 @@ export const member = (state = initialState, action: Action) => {
             const { rootId, ...member } = action.payload;
             const rootIdx = state.members.findIndex(({ id }) => id === rootId);
             if (rootIdx !== -1) {
-                const members = addMember(state.members[rootIdx], member);
+                const members = MemberService.addMember(state.members[rootIdx], member);
                 return { ...state, ...state.members.splice(rootIdx, 1, members) };
             }
             return state;
@@ -28,7 +28,7 @@ export const member = (state = initialState, action: Action) => {
             const { rootId, id } = action.payload;
             const rootIdx = state.members.findIndex(({ id }) => id === rootId);
             if (rootIdx !== -1) {
-                const members = removeMember(state.members[rootIdx], id);
+                const members = MemberService.removeMember(state.members[rootIdx], id);
                 if (members) {
                     return { ...state, ...state.members.splice(rootIdx, 1, members) };
                 }
@@ -40,7 +40,7 @@ export const member = (state = initialState, action: Action) => {
             const { rootId, ...member } = action.payload;
             const rootIdx = state.members.findIndex(({ id }) => id === rootId);
             if (rootIdx !== -1) {
-                const members = changeMember(state.members[rootIdx], member);
+                const members = MemberService.changeMember(state.members[rootIdx], member);
                 return { ...state, ...state.members.splice(rootIdx, 1, members) };
             }
             return state;
