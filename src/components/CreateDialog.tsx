@@ -10,7 +10,7 @@ import { ActionType } from '../store/reducers/member';
 
 interface FormValues {
     name: string;
-    birth: string;
+    birth: Date;
     parentId?: number;
 }
 
@@ -34,20 +34,21 @@ export const CreateDialog = () => {
                     <Controller
                         name='name'
                         control={control}
-                        render={({ field: { onChange, value } }) => <TextInput onChange={onChange} value={value}
-                                                                               placeholder='Name' />}
+                        defaultValue=''
+                        render={({ field: { onChange, value } }) =>
+                            <TextInput onChange={onChange} value={value} placeholder='Name' />
+                        }
                     />
                     <Controller
                         name='birth'
                         control={control}
+                        defaultValue={new Date()}
                         render={({ field: { onChange, value } }) =>
                             <DatePicker
-                                placeholderText='Input birth'
-                                showTimeInput={false}
-                                selected={new Date()}
+                                placeholderText='Birth'
                                 dateFormat='yyyy-MM-dd'
                                 className='input _date'
-                                value={value}
+                                selected={value}
                                 onChange={onChange}
                             />
                         }

@@ -25,8 +25,9 @@ export interface CreateMemberDto {
     birth: string;
 }
 
-export interface CreateChildDto extends CreateMemberDto {
+export interface CreateChildDto extends Omit<CreateMemberDto, 'birth'> {
     parentId?: number;
+    birth: Date;
 }
 
 export interface ChildDto extends Omit<MemberDto, 'children'> {
