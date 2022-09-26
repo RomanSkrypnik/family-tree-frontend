@@ -30,7 +30,7 @@ export const Select: FC<Props> = ({ value, onChange, placeholder, className, ite
 
     return (
         <div className={cn('select', className)}>
-            <button ref={ref} type='button' onClick={handleClick}
+            <button disabled={!items || items.length === 0} ref={ref} type='button' onClick={handleClick}
                     className='select__button text'>{val ?? placeholder}</button>
             {
                 opened &&

@@ -7,6 +7,9 @@
   &__inner {
 
     &._clickable {
+      &:hover {
+        background-color: mediumpurple;
+      }
       cursor: pointer;
     }
 
