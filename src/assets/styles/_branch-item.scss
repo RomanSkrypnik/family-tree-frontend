@@ -35,3 +35,10 @@
   max-width: 300px;
   list-style: none;
 }
+
+.branch-item-wrapper {
+  &:not(:first-child) {
+    border-top: 2px solid lightgrey;
+    padding-top: 10px;
+  }
+}

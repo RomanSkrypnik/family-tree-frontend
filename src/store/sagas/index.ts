@@ -1,7 +1,15 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { MemberService } from '../../services';
 import { AxiosResponse } from 'axios';
-import { ChildDto, MemberDto, MemberTreeDto } from '../../ts';
+import {
+    ActionDeleteMember,
+    ActionUpdateMember,
+    ChildDto,
+    MemberDto,
+    MemberTreeDto,
+    RemoveMemberDto,
+    UpdateMemberResponse,
+} from '../../ts';
 import { ActionCreateChild, ActionCreateMember, ActionType } from '../../ts';
 
 export function* fetchBranches() {
@@ -31,10 +39,30 @@ export function* createMember(action: ActionCreateMember) {
     }
 }
 
+export function* deleteMember(action: ActionDeleteMember) {
+    try {
+        const data: AxiosResponse<RemoveMemberDto> = yield call(MemberService.delete, action.payload.id);
+        yield put({ type: ActionType.REMOVE_MEMBER, payload: data.data });
+    } catch (e) {
+        throw e;
+    }
+}
+
+export function* updateMember(action: ActionUpdateMember) {
+    try {
+        const data: AxiosResponse<UpdateMemberResponse> = yield call(MemberService.update, action.payload);
+        yield put({ type: ActionType.UPDATE_MEMBER, payload: data.data });
+    } catch (e) {
+        throw e;
+    }
+}
+
 export function* watchClickSaga() {
     yield takeLatest(ActionType.FETCH_MEMBERS, fetchBranches);
     yield takeLatest(ActionType.CREATE_CHILD, createChild);
     yield takeLatest(ActionType.CREATE_MEMBER, createMember);
+    yield takeLatest(ActionType.DELETE_MEMBER, deleteMember);
+    yield takeLatest(ActionType.UPDATE_MEMBER, updateMember);
 }
 
 export default function* rootSaga() {

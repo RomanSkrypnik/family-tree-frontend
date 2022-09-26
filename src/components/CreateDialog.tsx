@@ -24,7 +24,7 @@ export const CreateDialog = () => {
         if (payload.parentId) {
             dispatch({ type: ActionType.CREATE_CHILD, payload });
         } else {
-            console.log('here');
+            dispatch({ type: ActionType.CREATE_MEMBER, payload });
         }
         handleClick();
     };

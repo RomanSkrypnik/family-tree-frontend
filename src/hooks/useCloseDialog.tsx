@@ -6,10 +6,11 @@ export const useCloseDialog = (create?: boolean) => {
 
     const handleEditing = () => {
         dispatch({ type: ActionType.SET_EDIT, payload: { operation: '', isEditing: false } });
-    };
-    const handleCreate = () => {
         dispatch({ type: ActionType.SET_MEMBER, payload: null });
     };
+    const handleCreate = () => {
+        dispatch({ type: ActionType.SET_EDIT, payload: { operation: '', isEditing: false } });
+    };
 
-    return create ? handleEditing : handleCreate;
+    return create ? handleCreate : handleEditing;
 };
